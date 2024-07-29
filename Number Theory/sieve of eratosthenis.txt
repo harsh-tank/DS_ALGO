@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll primes[10000001];
+ll pri_sum[10000001];
+#define maxN 10000000
+void sieve()
+{
+    for(ll i=2;i<=maxN;i++)
+    {
+        primes[i]=1;
+    }
+    
+    for(ll i=2;i*i<=maxN;i++)
+    {
+        if(primes[i]==1)
+        {
+        for(ll j=i*i;j<=maxN;j+=i)
+        {
+            primes[j]=0;
+        }
+        }
+    }
+}
+void sum_sieve()
+{
+    for(ll i=1;i<=maxN;i++)
+    {
+        pri_sum[i]=pri_sum[i-1]+primes[i];
+    }
+}
+int main()
+{
+  sieve();
+  sum_sieve();
+  ll t;
+  cin>>t;
+  while(t--)
+  {
+      ll l,r;
+      cin>>l>>r;
+      ll ans=pri_sum[r]-pri_sum[l-1];
+      cout<<ans<<"\n";
+  }
+}
